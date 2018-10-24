@@ -152,27 +152,25 @@ AInt AInt::operator-(AInt subtrahend)
 
 AInt AInt::operator*(AInt factor)
 {
-	std::vector<std::vector<int>> sum(factor.length());
-	for (int i = 0; i < sum.size(); i++)
-		for (int j = 0; j < i+1; j++)
-			sum[i].push_back(0);
-
 	AInt total = 0;
 
-	for (int i = 0; i < sum.size(); i++)
+	for (int i = 0; i < factor.length(); i++)
 	{
+		std::string sum(i, '0');
+		int carry = 0;
 		for (int j = 0; j < this->length(); j++)
 		{
-			int mul = (this->data[this->length() - 1 - j] - '0') * (factor.data[sum.size() - 1 - i] - '0') + sum[i][0];
+			int mul = (this->data[this->length() - 1 - j] - '0') * (factor.data[factor.length() - 1 - i] - '0') + carry;
 			int pmul = mul % 10;
-			int carry = std::floor(mul / 10);
 
-			sum[i][0] = pmul;
-			sum[i].insert(sum[i].begin(), carry);
+			sum.append(std::to_string(pmul));
+			carry = std::floor(mul / 10);
 		}
-		std::ostringstream os;
-		std::copy(sum[i].begin() + ((sum[i][0] == 0) ? 1 : 0), sum[i].end(), std::ostream_iterator<int>(os));
-		total = total + AInt(os.str());
+
+		if (carry != 0) sum.append(std::to_string(carry));
+
+		std::reverse(sum.begin(), sum.end());
+		total = total + AInt(sum);
 	}
 
 	return AInt(total);
