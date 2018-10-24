@@ -29,10 +29,21 @@ public:
 	void operator=(long long int n);
 
 	AInt operator+(AInt addend);
+	AInt operator-(AInt subtrahend);
 	AInt operator*(AInt factor);
 
 	AInt operator+(int addend);
+	AInt operator-(int subtrahend);
 	AInt operator*(int factor);
+
+	AInt operator-();
+
+	bool operator>(AInt comp);
+	bool operator<(AInt comp);
+	bool operator>=(AInt comp);
+	bool operator<=(AInt comp);
+	bool operator==(AInt comp);
+	bool operator!=(AInt comp);
 
 	friend inline std::ostream& operator<<(std::ostream& os, const AInt& num);
 
