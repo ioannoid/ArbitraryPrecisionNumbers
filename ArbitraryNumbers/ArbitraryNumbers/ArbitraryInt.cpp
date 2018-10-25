@@ -96,7 +96,7 @@ AInt AInt::operator+(AInt addend)
 	}
 }
 
-AInt AInt::operator-(AInt subtrahend)
+/*AInt AInt::operator-(AInt subtrahend)
 {
 	auto sub = [](std::string n1, std::string n2)
 	{
@@ -148,6 +148,74 @@ AInt AInt::operator-(AInt subtrahend)
 		subtrahend.negative = false;
 		this->negative = false;
 		AInt diff = sub(this->data, subtrahend.data);
+		diff.negative = true;
+		return diff;
+	}
+	else if (this->negative && !subtrahend.negative)
+	{
+		this->negative = false;
+		AInt diff = *this + subtrahend;
+		diff.negative = true;
+		return diff;
+	}
+	else if (!this->negative && subtrahend.negative)
+	{
+		subtrahend.negative = false;
+		return *this + subtrahend;
+	}
+}*/
+
+AInt AInt::operator-(AInt subtrahend)
+{
+	if (*this == subtrahend) return AInt(0);
+	else if (!this->negative && !subtrahend.negative && this->length() == subtrahend.length() && *this > subtrahend)
+	{
+		std::vector<int> diff(this->length() + 1, 0);
+		for (int i = this->length() - 1; i >= 0; i--)
+		{
+			if ((this->data[i] - '0') + diff[i + 1] < (subtrahend.data[i] - '0'))
+			{
+				diff[i] -= 1;
+				diff[i + 1] += 10;
+			}
+			diff[i + 1] = (diff[i + 1] + (this->data[i] - '0')) - (subtrahend.data[i] - '0');
+		}
+
+		std::vector<std::string> sdiff(this->length() + 1);
+
+		for (int i = 0; i < this->length() + 1; i++) sdiff[i] = std::to_string(diff[i]);
+		while (sdiff[0] == "0") sdiff.erase(sdiff.begin());
+
+		std::ostringstream os;
+		std::copy(sdiff.begin(), sdiff.end(), std::ostream_iterator<std::string>(os));
+		std::string fsum = os.str();
+		return AInt(fsum.c_str());
+	}
+	else if (*this > subtrahend && !this->negative && !subtrahend.negative)
+	{
+		while (subtrahend.length() != this->length()) subtrahend.data = "0" + subtrahend.data;
+		return *this - subtrahend;
+	}
+	else if (*this < subtrahend && !this->negative && !subtrahend.negative)
+	{
+		while (this->length() != subtrahend.length()) this->data = "0" + this->data;
+		AInt diff = subtrahend - *this;
+		diff.negative = true;
+		return diff;
+	}
+	else if (*this > subtrahend && this->negative && subtrahend.negative)
+	{
+		while (this->length() != subtrahend.length()) this->data = "0" + this->data;
+		subtrahend.negative = false;
+		this->negative = false;
+		return subtrahend - *this;
+	}
+	else if (*this < subtrahend && this->negative && subtrahend.negative)
+	{
+		while (subtrahend.length() != this->length()) subtrahend.data = "0" + subtrahend.data;
+		subtrahend.negative = false;
+		this->negative = false;
+		AInt diff = *this - subtrahend;
 		diff.negative = true;
 		return diff;
 	}
