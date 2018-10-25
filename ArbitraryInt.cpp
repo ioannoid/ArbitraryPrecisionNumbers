@@ -50,35 +50,47 @@ void AInt::operator=(long long int n)
 
 AInt AInt::operator+(AInt addend)
 {
-	auto add = [](std::string n1, std::string n2)
+	if (this->length() < addend.length()) while (this->length() != addend.length()) this->data = "0" + this->data;
+	else if(addend.length() < this->length()) while (addend.length() != this->length()) addend.data = "0" + addend.data;
+
+	if (this->negative && addend.negative)
 	{
-		std::string sum;
-		int carry = 0;
-		for (int i = n1.length() - 1; i >= 0; i--)
-		{
-			int psum = (n1[i] - '0') + (n2[i] - '0');
-			int csum = psum % 10;
-
-			sum.append(std::to_string((csum + carry) % 10));
-			carry = std::floor((psum + carry) / 10);
-		}
-		if (carry != 0) sum.append(std::to_string(carry));
-
-		std::reverse(sum.begin(), sum.end());
-		return AInt(sum);
-	};
-
-	if (this->length() != addend.length())
+		this->negative = false;
+		addend.negative = false;
+		AInt num = *this + addend;
+		num.negative = true;
+		return num;
+	}
+	else if (!this->negative && addend.negative)
 	{
-		std::string smallest = (this->length() < addend.length()) ? this->data : addend.data;
-		std::string largest = (this->length() > addend.length()) ? this->data : addend.data;
-
-		while (smallest.length() != largest.length()) smallest = "0" + smallest;
-
-		return add(largest, smallest);
+		this->negative = false;
+		addend.negative = false;
+		AInt num = *this - addend;
+		return num;
+	}
+	else if (this->negative && !addend.negative)
+	{
+		this->negative = false;
+		addend.negative = false;
+		AInt num = addend - *this;
+		return num;
 	}
 
-	return add(this->data, addend.data);
+	std::string sum;
+	int carry = 0;
+	for (int i = this->length() - 1; i >= 0; i--)
+	{
+		int psum = (this->data[i] - '0') + (addend.data[i] - '0');
+		int csum = psum % 10;
+
+		sum.append(std::to_string((csum + carry) % 10));
+		carry = std::floor((psum + carry) / 10);
+	}
+
+	if (carry != 0) sum.append(std::to_string(carry));
+
+	std::reverse(sum.begin(), sum.end());
+	return AInt(sum);
 }
 
 AInt AInt::operator-(AInt subtrahend)
@@ -152,6 +164,21 @@ AInt AInt::operator-(AInt subtrahend)
 
 AInt AInt::operator*(AInt factor)
 {
+	if (this->negative && factor.negative)
+	{
+		this->negative = false;
+		factor.negative = false;
+		return *this * factor;
+	}
+	else if (this->negative != factor.negative)
+	{
+		this->negative = false;
+		factor.negative = false;
+		AInt num = *this * factor;
+		num.negative = true;
+		return num;
+	}
+
 	AInt total = 0;
 
 	for (int i = 0; i < factor.length(); i++)
