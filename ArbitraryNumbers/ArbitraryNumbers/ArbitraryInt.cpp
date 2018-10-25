@@ -208,27 +208,55 @@ AInt AInt::operator*(AInt factor)
 	}
 } 
 
-AInt AInt::operator+(int addend)
+AInt AInt::operator+(long long int addend)
 {
 	return (*this + AInt(addend));
 }
 
-AInt AInt::operator-(int subtrahend)
+AInt AInt::operator-(long long int subtrahend)
 {
 	return (*this - AInt(subtrahend));
 }
 
-AInt AInt::operator*(int factor)
+AInt AInt::operator*(long long int factor)
 {
 	return (*this * AInt(factor));
 }
 
-AInt AInt::operator-()
+void AInt::operator+=(const AInt& addend)
 {
-	this->negative = !this->negative;
-	return *this;
+	*this = *this + addend;
 }
 
+void AInt::operator-=(const AInt& subtrahend)
+{
+	*this = *this - subtrahend;
+}
+
+void AInt::operator*=(const AInt& factor)
+{
+	*this = *this * factor;
+}
+
+void AInt::operator+=(long long int addend)
+{
+	*this = *this + AInt(addend);
+}
+
+void AInt::operator-=(long long int subtrahend)
+{
+	*this = *this - AInt(subtrahend);
+}
+
+void AInt::operator*=(long long int factor)
+{
+	*this = *this * AInt(factor);
+}
+
+void AInt::operator-()
+{
+	this->negative = !this->negative;
+}
 
 bool AInt::operator>(AInt comp)
 {

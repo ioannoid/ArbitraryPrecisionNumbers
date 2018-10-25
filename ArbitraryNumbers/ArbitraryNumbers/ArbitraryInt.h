@@ -32,11 +32,19 @@ public:
 	AInt operator-(AInt subtrahend);
 	AInt operator*(AInt factor);
 
-	AInt operator+(int addend);
-	AInt operator-(int subtrahend);
-	AInt operator*(int factor);
+	AInt operator+(long long int addend);
+	AInt operator-(long long int subtrahend);
+	AInt operator*(long long int factor);
 
-	AInt operator-();
+	void operator+=(const AInt& addend);
+	void operator-=(const AInt& subtrahend);
+	void operator*=(const AInt& factor);
+
+	void operator+=(long long int addend);
+	void operator-=(long long int subtrahend);
+	void operator*=(long long int factor);
+
+	void operator-();
 
 	bool operator>(AInt comp);
 	bool operator<(AInt comp);
