@@ -141,7 +141,7 @@ AInt AInt::operator-(AInt subtrahend)
 	}
 	else
 	{
-		std::vector<int> diff(this->length() + 1, 0);
+		/*std::vector<int> diff(this->length() + 1, 0);
 		for (int i = this->length() - 1; i >= 0; i--)
 		{
 			if ((this->data[i] - '0') + diff[i + 1] < (subtrahend.data[i] - '0'))
@@ -160,7 +160,26 @@ AInt AInt::operator-(AInt subtrahend)
 		std::ostringstream os;
 		std::copy(sdiff.begin(), sdiff.end(), std::ostream_iterator<std::string>(os));
 		std::string fsum = os.str();
-		return AInt(fsum.c_str());
+		return AInt(fsum.c_str());*/
+
+		//std::vector<int> diff(this->length() + 1, 0);
+		std::string diff;
+		int borrow = 0;
+		int carry = 0;
+		for (int i = this->length() - 1; i >= 0; i--)
+		{
+			bool Borrow = (this->data[i] - '0') + borrow < (subtrahend.data[i] - '0');
+			if (Borrow) carry = 10;
+			else carry = 0;
+
+			diff.append(std::to_string((carry + (this->data[i] - '0') + borrow) - (subtrahend.data[i] - '0')));
+
+			if (Borrow) borrow = -1;
+			else borrow = 0;
+		}
+
+		std::reverse(diff.begin(), diff.end());
+		return AInt(diff);
 	}
 }
 
