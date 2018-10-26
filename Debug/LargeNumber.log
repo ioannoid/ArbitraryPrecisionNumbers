@@ -1,0 +1,10 @@
+﻿  ArbitraryInt.cpp
+c:\users\ioannis.ioannis-pc\source\repos\largenumber\largenumber\arbitraryint.cpp(46): warning C4244: 'argument': conversion from '__int64' to 'const char', possible loss of data
+c:\users\ioannis.ioannis-pc\source\repos\largenumber\largenumber\arbitraryint.cpp(60): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\ioannis.ioannis-pc\source\repos\largenumber\largenumber\arbitraryint.cpp(68): warning C4018: '<': signed/unsigned mismatch
+c:\users\ioannis.ioannis-pc\source\repos\largenumber\largenumber\arbitraryint.cpp(106): warning C4018: '<': signed/unsigned mismatch
+c:\users\ioannis.ioannis-pc\source\repos\largenumber\largenumber\arbitraryint.cpp(161): warning C4018: '<': signed/unsigned mismatch
+c:\users\ioannis.ioannis-pc\source\repos\largenumber\largenumber\arbitraryint.cpp(167): warning C4018: '<': signed/unsigned mismatch
+c:\users\ioannis.ioannis-pc\source\repos\largenumber\largenumber\arbitraryint.cpp(173): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\ioannis.ioannis-pc\source\repos\largenumber\largenumber\arbitraryint.cpp(156): warning C4715: 'AInt::operator-': not all control paths return a value
+  LargeNumber.vcxproj -> C:\Users\Ioannis.Ioannis-PC\source\repos\LargeNumber\Debug\LargeNumber.exe
