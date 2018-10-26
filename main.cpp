@@ -27,7 +27,7 @@ int main()
 	}
 	cout << n3 << endl;*/
 
-	cout << 33_ai - 22_ai << endl;
+	cout << 11_ani - 22_ani << endl;
 
 	auto stop = chrono::high_resolution_clock::now();
 	cout << chrono::duration_cast<chrono::nanoseconds>(stop - start).count() << endl;
