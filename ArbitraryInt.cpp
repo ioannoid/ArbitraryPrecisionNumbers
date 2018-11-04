@@ -157,6 +157,7 @@ AInt AInt::operator-(AInt subtrahend)
 		}
 
 		std::reverse(diff.begin(), diff.end());
+		while (diff[0] == '0') diff.erase(diff.begin());
 		return AInt(diff);
 	}
 }
@@ -217,6 +218,50 @@ AInt AInt::operator-(long long int subtrahend)
 AInt AInt::operator*(long long int factor)
 {
 	return (*this * AInt(factor));
+}
+
+AInt AInt::exp(long long int pow)
+{
+	if (pow == 0) return 1_ai;
+	AInt num = 1_ai;
+	for (long long int i = 0; i < pow; i++)
+	{
+		num *= *this;
+	}
+	return num;
+}
+
+AInt AInt::exp(AInt pow)
+{
+	AInt num = 1;
+	while (pow != 0)
+	{
+		num *= *this;
+		pow -= 1;
+	}
+	return num;
+}
+
+AInt AInt::exp(AInt base, long long int pow)
+{
+	if (pow == 0) return 1_ai;
+	AInt num = 1_ai;
+	for (long long int i = 0; i < pow; i++)
+	{
+		num *= base;
+	}
+	return num;
+}
+
+AInt AInt::exp(AInt base, AInt pow)
+{
+	AInt num = 1;
+	while (pow != 0)
+	{
+		num *= base;
+		pow -= 1;
+	}
+	return num;
 }
 
 void AInt::operator+=(const AInt& addend)

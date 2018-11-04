@@ -18,8 +18,8 @@ class AInt
 public:
 	AInt() {}
 	AInt(const AInt& n) : data(n.data), negative(n.negative) {}
-	AInt(const char* n) : data((n[0] == '0') ? std::string(n + 1, n + std::strlen(n)) : n), negative((n[0] == '0') ? true : false) {}
-	AInt(std::string n) : data((n[0] == '0') ? n.substr(1,-1) : n), negative((n[0] == '0') ? true : false) {}
+	AInt(const char* n) : data((n[0] == '0' && strlen(n) != 1) ? std::string(n + 1, n + std::strlen(n)) : n), negative((n[0] == '0' && strlen(n) != 1) ? true : false) {}
+	AInt(std::string n) : data((n[0] == '0' && n.length() != 1) ? n.substr(1,-1) : n), negative((n[0] == '0' && n.length() != 1) ? true : false) {}
 	AInt(int n) : data(std::to_string(n).substr((n < 0) ? 1 : 0, -1)), negative((n < 0) ? true : false) {}
 	AInt(long long int n) : data(std::to_string(n).substr((n < 0) ? 1 : 0, -1)), negative((n < 0) ? true : false) {}
 
@@ -35,6 +35,12 @@ public:
 	AInt operator+(long long int addend);
 	AInt operator-(long long int subtrahend);
 	AInt operator*(long long int factor);
+
+	AInt exp(long long int pow);
+	AInt exp(AInt pow);
+
+	static AInt exp(AInt base, long long int pow);
+	static AInt exp(AInt base, AInt pow);
 
 	void operator+=(const AInt& addend);
 	void operator-=(const AInt& subtrahend);
