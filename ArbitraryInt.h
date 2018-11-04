@@ -36,11 +36,11 @@ public:
 	AInt operator-(long long int subtrahend);
 	AInt operator*(long long int factor);
 
-	AInt exp(long long int pow);
-	AInt exp(AInt pow);
+	AInt pow(long long int exp);
+	AInt pow(AInt exp);
 
-	static AInt exp(AInt base, long long int pow);
-	static AInt exp(AInt base, AInt pow);
+	static AInt pow(AInt base, long long int exp);
+	static AInt pow(AInt base, AInt exp);
 
 	void operator+=(const AInt& addend);
 	void operator-=(const AInt& subtrahend);
