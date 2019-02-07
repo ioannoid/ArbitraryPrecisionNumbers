@@ -15,7 +15,7 @@ int main()
 {
 	auto start = chrono::high_resolution_clock::now();
 	
-	cout << AInt::pow(2_ai, 5) << endl; // Newly implemented pow function
+	cout << 14_ai % 5 << endl;
 
 	auto stop = chrono::high_resolution_clock::now();
 	cout << chrono::duration_cast<chrono::milliseconds>(stop - start).count() << endl;

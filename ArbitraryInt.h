@@ -31,10 +31,14 @@ public:
 	AInt operator+(AInt addend);
 	AInt operator-(AInt subtrahend);
 	AInt operator*(AInt factor);
+	AInt operator/(AInt divisor);
+	AInt operator%(AInt divisor);
 
 	AInt operator+(long long int addend);
 	AInt operator-(long long int subtrahend);
 	AInt operator*(long long int factor);
+	AInt operator/(long long int divisor);
+	AInt operator%(long long int divisor);
 
 	AInt pow(long long int exp);
 	AInt pow(AInt exp);
@@ -83,6 +87,7 @@ inline AInt operator""_ai(const char* lit)
 {
 	return AInt(lit);
 }
+
 inline AInt operator""_ani(const char* lit)
 {
 	AInt n = lit;

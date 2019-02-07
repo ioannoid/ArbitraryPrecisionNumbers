@@ -203,7 +203,20 @@ AInt AInt::operator*(AInt factor)
 		num.negative = true;
 		return num;
 	}
-} 
+}
+
+AInt AInt::operator%(AInt divisor)
+{
+	AInt temp = *this;
+
+	while (temp >= divisor)
+	{
+		temp -= divisor;
+	}
+
+	return temp;
+}
+
 
 AInt AInt::operator+(long long int addend)
 {
@@ -218,6 +231,18 @@ AInt AInt::operator-(long long int subtrahend)
 AInt AInt::operator*(long long int factor)
 {
 	return (*this * AInt(factor));
+}
+
+AInt AInt::operator%(long long int divisor)
+{
+	AInt temp = *this;
+
+	while (temp >= divisor)
+	{
+		temp -= divisor;
+	}
+
+	return temp;
 }
 
 AInt AInt::pow(long long int exp)
