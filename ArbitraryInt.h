@@ -43,6 +43,12 @@ public:
 	void operator/=(const AInt& divisor);
 	void operator%=(const AInt& divisor);
 
+	AInt operator++();
+	AInt operator--();
+
+	AInt operator++(int);
+	AInt operator--(int);
+
 	void operator-();
 
 	bool operator>(const AInt& comp);

@@ -236,8 +236,9 @@ AInt AInt::operator%(AInt divisor)
 AInt AInt::pow(AInt exp)
 {
 	AInt num = 1;
-	while (exp != 0)
+	while (exp != 0_ai)
 	{
+		std::cout << "test" << std::endl;
 		num *= *this;
 		exp -= 1;
 	}
@@ -278,6 +279,32 @@ void AInt::operator/=(const AInt & divisor)
 void AInt::operator%=(const AInt & divisor)
 {
 	*this = *this % divisor;
+}
+
+AInt AInt::operator++()
+{
+	*this += 1;
+	return *this;
+}
+
+AInt AInt::operator--()
+{
+	*this -= 1;
+	return *this;
+}
+
+AInt AInt::operator++(int)
+{
+	AInt temp = *this;
+	*this += 1;
+	return temp;
+}
+
+AInt AInt::operator--(int)
+{
+	AInt temp = *this;
+	*this -= 1;
+	return temp;
 }
 
 void AInt::operator-()
