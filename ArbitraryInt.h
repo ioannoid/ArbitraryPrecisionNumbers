@@ -34,42 +34,31 @@ public:
 	AInt operator/(AInt divisor);
 	AInt operator%(AInt divisor);
 
-	AInt operator+(long long int addend);
-	AInt operator-(long long int subtrahend);
-	AInt operator*(long long int factor);
-	AInt operator/(long long int divisor);
-	AInt operator%(long long int divisor);
-
-	AInt pow(long long int exp);
 	AInt pow(AInt exp);
-
-	static AInt pow(AInt base, long long int exp);
 	static AInt pow(AInt base, AInt exp);
-
+	
 	void operator+=(const AInt& addend);
 	void operator-=(const AInt& subtrahend);
 	void operator*=(const AInt& factor);
-
-	void operator+=(long long int addend);
-	void operator-=(long long int subtrahend);
-	void operator*=(long long int factor);
+	void operator/=(const AInt& divisor);
+	void operator%=(const AInt& divisor);
 
 	void operator-();
 
-	bool operator>(AInt comp);
-	bool operator<(AInt comp);
-	bool operator>=(AInt comp);
-	bool operator<=(AInt comp);
-	bool operator==(AInt comp);
-	bool operator!=(AInt comp);
+	bool operator>(const AInt& comp);
+	bool operator<(const AInt& comp);
+	bool operator>=(const AInt& comp);
+	bool operator<=(const AInt& comp);
+	bool operator==(const AInt& comp);
+	bool operator!=(const AInt& comp);
 
 	friend inline std::ostream& operator<<(std::ostream& os, const AInt& num);
 
 	friend inline AInt operator""_ai(const char* lit);
 	friend inline AInt operator""_ani(const char* lit);
 
-	std::string getString() { return data; }
-	int length() { return data.length(); }
+	std::string getString() const { return data; }
+	int length() const { return data.length(); }
 private:
 	std::string data;
 	bool negative = false;

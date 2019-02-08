@@ -15,7 +15,7 @@ int main()
 {
 	auto start = chrono::high_resolution_clock::now();
 	
-	cout << 14_ai % 5 << endl;
+	if (12_ai == 12_ai) cout << "true" << endl;
 
 	auto stop = chrono::high_resolution_clock::now();
 	cout << chrono::duration_cast<chrono::milliseconds>(stop - start).count() << endl;

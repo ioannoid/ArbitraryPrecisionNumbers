@@ -205,6 +205,22 @@ AInt AInt::operator*(AInt factor)
 	}
 }
 
+AInt AInt::operator/(AInt divisor)
+{
+	if (*this < divisor) return 0_ai;
+
+	AInt temp = *this;
+
+	AInt quotient = 0;
+	while (temp >= divisor)
+	{
+		temp -= divisor;
+		quotient += 1;
+	}
+
+	return quotient;
+}
+
 AInt AInt::operator%(AInt divisor)
 {
 	AInt temp = *this;
@@ -217,45 +233,6 @@ AInt AInt::operator%(AInt divisor)
 	return temp;
 }
 
-
-AInt AInt::operator+(long long int addend)
-{
-	return (*this + AInt(addend));
-}
-
-AInt AInt::operator-(long long int subtrahend)
-{
-	return (*this - AInt(subtrahend));
-}
-
-AInt AInt::operator*(long long int factor)
-{
-	return (*this * AInt(factor));
-}
-
-AInt AInt::operator%(long long int divisor)
-{
-	AInt temp = *this;
-
-	while (temp >= divisor)
-	{
-		temp -= divisor;
-	}
-
-	return temp;
-}
-
-AInt AInt::pow(long long int exp)
-{
-	if (exp == 0) return 1_ai;
-	AInt num = 1_ai;
-	for (long long int i = 0; i < exp; i++)
-	{
-		num *= *this;
-	}
-	return num;
-}
-
 AInt AInt::pow(AInt exp)
 {
 	AInt num = 1;
@@ -263,17 +240,6 @@ AInt AInt::pow(AInt exp)
 	{
 		num *= *this;
 		exp -= 1;
-	}
-	return num;
-}
-
-AInt AInt::pow(AInt base, long long int exp)
-{
-	if (exp == 0) return 1_ai;
-	AInt num = 1_ai;
-	for (long long int i = 0; i < exp; i++)
-	{
-		num *= base;
 	}
 	return num;
 }
@@ -304,19 +270,14 @@ void AInt::operator*=(const AInt& factor)
 	*this = *this * factor;
 }
 
-void AInt::operator+=(long long int addend)
+void AInt::operator/=(const AInt & divisor)
 {
-	*this = *this + AInt(addend);
+	*this = *this / divisor;
 }
 
-void AInt::operator-=(long long int subtrahend)
+void AInt::operator%=(const AInt & divisor)
 {
-	*this = *this - AInt(subtrahend);
-}
-
-void AInt::operator*=(long long int factor)
-{
-	*this = *this * AInt(factor);
+	*this = *this % divisor;
 }
 
 void AInt::operator-()
@@ -324,7 +285,7 @@ void AInt::operator-()
 	this->negative = !this->negative;
 }
 
-bool AInt::operator>(AInt comp)
+bool AInt::operator>(const AInt& comp)
 {
 	if (this->length() > comp.length())
 	{
@@ -355,37 +316,33 @@ bool AInt::operator>(AInt comp)
 	}
 }
 
-bool AInt::operator<(AInt comp)
+bool AInt::operator<(const AInt& comp)
 {
 	return !(*this > comp);
 }
 
-bool AInt::operator>=(AInt comp)
+bool AInt::operator>=(const AInt& comp)
 {
 	if (*this == comp) return true;
 	else if (*this > comp) return true;
 	return false;
 }
 
-bool AInt::operator<=(AInt comp)
+bool AInt::operator<=(const AInt& comp)
 {
 	if (*this == comp) return true;
 	else if (*this < comp) return true;
 	return false;
 }
 
-bool AInt::operator==(AInt comp)
+bool AInt::operator==(const AInt& comp)
 {
 	if (this->negative != comp.negative) return false;
-	else if (this->length() == comp.length())
-	{
-		for (int i = 0; i < this->length(); i++) if (this->data[i] != comp.data[i]) return false;
-		return true;
-	}
-	else return false;
+	else if (this->length() != comp.length()) return false;
+	else if (this->data.compare(comp.data) == 0) return true;
 }
 
-bool AInt::operator!=(AInt comp)
+bool AInt::operator!=(const AInt& comp)
 {
 	return !(*this == comp);
 }
