@@ -10,8 +10,7 @@
 
 using namespace std;
 
-int main()
-{
+int main() {
 	auto start = chrono::high_resolution_clock::now();
 
 	ADecimal m = 65.43219_ad(4);
@@ -25,6 +24,6 @@ int main()
 
 	auto stop = chrono::high_resolution_clock::now();
 	cout << chrono::duration_cast<chrono::milliseconds>(stop - start).count() << endl;
-	
+
  	return 0;
 };
