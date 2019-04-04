@@ -25,7 +25,6 @@ int main()
 
 	auto stop = chrono::high_resolution_clock::now();
 	cout << chrono::duration_cast<chrono::milliseconds>(stop - start).count() << endl;
-
-	system("PAUSE");
+	
  	return 0;
 };
