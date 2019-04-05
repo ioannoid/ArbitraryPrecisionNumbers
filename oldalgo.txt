@@ -1,60 +1,60 @@
-/*auto add = [](std::string n1, std::string n2)
+auto add = [](std::string n1, std::string n2)	
+{
+	std::vector<int> sum(n1.length() + 1);
+	for (int i = n1.length() - 1; i >= 0; i--)
 	{
-		std::vector<int> sum(n1.length() + 1);
-		for (int i = n1.length() - 1; i >= 0; i--)
-		{
-			int psum = (n1[i] - '0') + (n2[i] - '0');
-			int csum = psum % 10;
-			int carry = std::floor((psum + sum[i + 1]) / 10);
+		int psum = (n1[i] - '0') + (n2[i] - '0');
+		int csum = psum % 10;
+		int carry = std::floor((psum + sum[i + 1]) / 10);
 
-			sum[i + 1] = (csum + sum[i + 1]) % 10;
-			sum[i] = carry;
-		}
+		sum[i + 1] = (csum + sum[i + 1]) % 10;
+		sum[i] = carry;
+	}
 
-		std::vector<std::string> ssum(n1.length() + 1);
+	std::vector<std::string> ssum(n1.length() + 1);
 
-		for (int i = 0; i < n1.length() + 1; i++) ssum[i] = std::to_string(sum[i]);
+	for (int i = 0; i < n1.length() + 1; i++) ssum[i] = std::to_string(sum[i]);
 
-		std::ostringstream os;
-		std::copy(ssum.begin() + ((sum[0] == 0) ? 1 : 0), ssum.end(), std::ostream_iterator<std::string>(os));
-		std::string fsum = os.str();
-		return AInt(fsum.c_str());
-	};
+	std::ostringstream os;
+	std::copy(ssum.begin() + ((sum[0] == 0) ? 1 : 0), ssum.end(), std::ostream_iterator<std::string>(os));
+	std::string fsum = os.str();
+	return AInt(fsum.c_str());
+};
 
-	auto add1 = [](std::string n1, std::string n2)
+auto add1 = [](std::string n1, std::string n2)
+{
+	std::vector<std::string> sum(n1.length() + 1, "0");
+	for (int i = n1.length() - 1; i >= 0; i--)
 	{
-		std::vector<std::string> sum(n1.length() + 1, "0");
-		for (int i = n1.length() - 1; i >= 0; i--)
-		{
-			int psum = (n1[i] - '0') + (n2[i] - '0');
-			int csum = psum % 10;
-			int carry = std::floor((psum + std::stoi(sum[i + 1])) / 10);
+		int psum = (n1[i] - '0') + (n2[i] - '0');
+		int csum = psum % 10;
+		int carry = std::floor((psum + std::stoi(sum[i + 1])) / 10);
 
-			sum[i + 1] = std::to_string((csum + std::stoi(sum[i + 1])) % 10);
-			sum[i] = std::to_string(carry);
-		}
+		sum[i + 1] = std::to_string((csum + std::stoi(sum[i + 1])) % 10);
+		sum[i] = std::to_string(carry);
+	}
 
-		std::ostringstream os;
-		std::copy(sum.begin() + ((sum[0] == "0") ? 1 : 0), sum.end(), std::ostream_iterator<std::string>(os));
-		std::string fsum = os.str();
-		return AInt(fsum.c_str());
-	};*/
+	std::ostringstream os;
+	std::copy(sum.begin() + ((sum[0] == "0") ? 1 : 0), sum.end(), std::ostream_iterator<std::string>(os));
+	std::string fsum = os.str();
+	return AInt(fsum.c_str());
+};
 
-	/*auto add2 = [](std::string n1, std::string n2)
+auto add2 = [](std::string n1, std::string n2)
+{
+	std::stringstream sum;
+	int carry = 0;
+	for (int i = n1.length() - 1; i >= 0; i--)
 	{
-		std::stringstream sum;
-		int carry = 0;
-		for (int i = n1.length() - 1; i >= 0; i--)
-		{
-			int psum = (n1[i] - '0') + (n2[i] - '0');
-			int csum = psum % 10;
-			
-			sum << (csum + carry) % 10;
-			carry = std::floor((psum + carry) / 10);
-		}
-		if (carry != 0) sum << carry;
+		int psum = (n1[i] - '0') + (n2[i] - '0');
+		int csum = psum % 10;
+		
+		sum << (csum + carry) % 10;
+		carry = std::floor((psum + carry) / 10);
+	}
+	if (carry != 0) sum << carry;
 
-		std::string fsum = sum.str( );
-		std::reverse(fsum.begin(), fsum.end());
-		return AInt(fsum);
-	};*/
+	std::string fsum = sum.str( );
+	std::reverse(fsum.begin(), fsum.end());
+	return AInt(fsum);
+};
