@@ -40,7 +40,7 @@ public:
 	bool operator==(const ADecimal& comp);
 	bool operator!=(const ADecimal& comp);
 
-	void setPrecision(const int& precision);
+	void setPrecision(const unsigned& precision);
 
 	unsigned getLength() const;
 	unsigned getDecimalLength() const;

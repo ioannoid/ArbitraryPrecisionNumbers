@@ -288,7 +288,7 @@ bool ADecimal::operator!=(const ADecimal& comp) {
 	return !(*this > comp);
 }
 
-void ADecimal::setPrecision(const int& precision) {
+void ADecimal::setPrecision(const unsigned& precision) {
 	if (this->precision < precision) {
 		while (getDecimalLength() > precision) data.resize(data.length() - 1);
 		this->precision = precision;
