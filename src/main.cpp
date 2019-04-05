@@ -13,7 +13,7 @@ using namespace std;
 int main() {
 	auto start = chrono::high_resolution_clock::now();
 
-	ADecimal r = 31.38801_ad(10);
+	ADecimal r = 31.38802_ad(10);
 	ADecimal m = 65.43219_ad(4);
 	ADecimal n = 8.432498899_ad;
 
