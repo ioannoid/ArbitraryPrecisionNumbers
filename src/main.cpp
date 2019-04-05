@@ -13,10 +13,11 @@ using namespace std;
 int main() {
 	auto start = chrono::high_resolution_clock::now();
 
+	ADecimal r = 31.38801_ad(10);
 	ADecimal m = 65.43219_ad(4);
 	ADecimal n = 8.432498899_ad;
 
-	cout << m.getString() << ":" << n.getString() << endl;
+	cout << r << ":" << m << ":" << n << endl;
 
 	ADecimal t = m * n;
 
