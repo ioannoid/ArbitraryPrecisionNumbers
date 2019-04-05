@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-.vscode/
-=======
+/.vscode
 /Debug
 /Release
 /x64
 LargeNumber.vcxproj
 LargeNumber.vcxproj.filters
 LargeNumber.vcxproj.user
->>>>>>> 18c679f0491b6a80e0e302030cebabd55a69acb0
