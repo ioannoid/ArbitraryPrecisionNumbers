@@ -46,7 +46,7 @@ AInt AInt::operator+(AInt addend)
 		AInt num = *this - addend;
 		return num;
 	}
-	else if (this->negative && !addend.negative)
+	else
 	{
 		this->negative = false;
 		addend.negative = false;
@@ -154,7 +154,7 @@ AInt AInt::operator*(AInt factor)
 		factor.negative = false;
 		return *this * factor;
 	}
-	else if (this->negative != factor.negative)
+	else
 	{
 		this->negative = false;
 		factor.negative = false;
@@ -299,6 +299,7 @@ bool AInt::operator>(const AInt& comp)
 			for (int i = 0; i < this->length(); i++) if ((this->data[i] - '0') < (comp.data[i] - '0')) return true;
 			return false;
 		}
+		else return false;
 	}
 }
 
