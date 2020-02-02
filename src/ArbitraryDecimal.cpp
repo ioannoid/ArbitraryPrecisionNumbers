@@ -1,36 +1,19 @@
 #include "ArbitraryDecimal.hpp"
 
-ADecimal::ADecimal(Literal, const char* num) {
-	std::string temp = num;
-	size_t dplace = temp.find('.');
-
-	if (dplace == 0)
-	{
-		dplace = 1;
-		if (temp[0] == '-')
-		{
-			temp[0] = '0';
-			temp = '-' + temp;
-		}
-		else temp = '0' + temp;
-	}
+ADecimal::ADecimal(Literal, std::string_view num) {
+	size_t dplace = num.find('.');
 
 	if (dplace != std::string::npos)
 	{
-		temp.erase(temp.begin() + dplace);
-		dplace -= (temp[0] == '-') ? 1 : 0;
-
-		data = (temp[0] == '-') ? temp.substr(1) : temp;
-		negative = temp[0] == '-';
-		decimalplace = (int)dplace;
-		precision = getLength() - (int)dplace;
+		data = num;
+		data.erase(dplace, 1);
+		decimalplace = (int) dplace;
+		precision = getLength() - (int) dplace;
 	}
 	else
 	{
-		data = (temp[0] == '-') ? temp.substr(1) : temp;
-		negative = temp[0] == '-';
-		decimalplace = (int)temp.length();
-		if (temp[0] == '-') decimalplace--;
+		data = num;
+		decimalplace = (int) num.length();
 		precision = 0;
 	}
 }
@@ -43,11 +26,15 @@ ADecimal& ADecimal::operator=(const ADecimal& n) {
 	return *this;
 }
 
-ADecimal ADecimal::operator+(const ADecimal& addend){
-	ADecimal addend1 = *this;	
+ADecimal ADecimal::operator+(const ADecimal& addend) {
+	ADecimal addend1 = *this;
 	ADecimal addend2 = addend;
 
-	if (addend1.negative && !addend2.negative)
+	if(addend1 == -addend2)
+	{
+		return 0_ad((addend1.precision > addend2.precision) ? addend2.precision : addend1.precision);
+	}
+	else if (addend1.negative && !addend2.negative)
 	{
 		addend1.negative = false;
 		return addend2 - addend1;
@@ -207,18 +194,16 @@ ADecimal ADecimal::operator*(const ADecimal& factor) {
 		int precision = (factor1.precision > factor2.precision) ? factor2.precision : factor1.precision;
 		int dplace = factor1.getDecimalLength() + factor2.getDecimalLength();
 
-		AInt total = 0;
-
+		AInt total = 0_ai;
+		std::string sum = "";
 		for (long long i = 0; i < factor2.getLength(); i++)
 		{
-			std::string sum(i, '0');
 			int carry = 0;
 
 			for (long long j = 0; j < factor1.getLength(); j++)
 			{
 				int mul = (factor1.data[factor1.getLength() - 1 - j] - '0') * (factor2.data[factor2.getLength() - 1 - i] - '0') + carry;
 				int pmul = mul % 10;
-
 				sum.append(std::to_string(pmul));
 				carry = std::floor(mul / 10);
 			}
@@ -226,13 +211,20 @@ ADecimal ADecimal::operator*(const ADecimal& factor) {
 			if (carry != 0) sum.append(std::to_string(carry));
 
 			std::reverse(sum.begin(), sum.end());
-			total = total + AInt(sum);
+			total = total + AInt(sum + std::string(i, '0'));
+			sum.clear();
 		}
 		
-		std::string strfprod = total.getString();
+		/*std::string strfprod = total.getString();
 		while ((int) strfprod.length() - (int) dplace <= 0) strfprod = '0' + strfprod;
 		ADecimal fprod = toADecimal(strfprod);
+
+		std::cout << total << ", " << fprod << std::endl;
+
 		fprod.decimalplace = strfprod.length() - dplace;
+		fprod.setPrecision(precision);*/
+		ADecimal fprod = toADecimal(total.getString());
+		fprod.decimalplace = total.length() - dplace;
 		fprod.setPrecision(precision);
 
 		return fprod;
@@ -243,9 +235,10 @@ ADecimal ADecimal::operator/(const ADecimal& divisor) {
 	return ADecimal();
 }
 
-ADecimal& ADecimal::operator-() {
-	this->negative = !this->negative;
-	return *this;
+ADecimal ADecimal::operator-() {
+	ADecimal opp(*this);
+	opp.negative = !this->negative;
+	return opp;
 }
 
 ADecimal& ADecimal::operator()(int p) {
@@ -285,7 +278,7 @@ bool ADecimal::operator==(const ADecimal& comp) {
 }
 
 bool ADecimal::operator!=(const ADecimal& comp) {
-	return !(*this > comp);
+	return !(*this == comp);
 }
 
 void ADecimal::setPrecision(const unsigned& precision) {

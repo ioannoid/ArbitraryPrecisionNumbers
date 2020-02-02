@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include <string_view>
 #include <cstring>
 #include <algorithm>
 #include <cstdio>
@@ -21,7 +22,7 @@ private:
 public:
 	ADecimal() {}
 	ADecimal(const ADecimal& n) : data(n.data), negative(n.negative), decimalplace(n.decimalplace), precision(n.precision) {}
-	ADecimal(Literal, const char* num);
+	ADecimal(Literal, std::string_view num);
 
 	ADecimal& operator=(const ADecimal& n);
 
@@ -30,7 +31,7 @@ public:
 	ADecimal operator*(const ADecimal& factor);
 	ADecimal operator/(const ADecimal& divisor);
 
-	ADecimal& operator-();
+	ADecimal operator-();
 	ADecimal& operator()(int p);
 
 	bool operator>(const ADecimal& comp);
@@ -60,7 +61,7 @@ private:
 	unsigned int precision;
 };
 
-inline std::ostream& operator<<(std::ostream& os, const ADecimal& num) {
+std::ostream& operator<<(std::ostream& os, const ADecimal& num) {
 	std::string snum = num.data;
 	while (snum[snum.length() - 1] == '0' && snum.length() > num.decimalplace) snum.resize(snum.length() - 1);
 	if(num.decimalplace != num.getLength()) snum.insert(snum.begin() + num.decimalplace, '.');
@@ -68,6 +69,6 @@ inline std::ostream& operator<<(std::ostream& os, const ADecimal& num) {
 	return os;
 }
 
-inline ADecimal operator""_ad(const char* lit) {
+ADecimal operator""_ad(const char* lit) {
 	return ADecimal(ADecimal::Literal{}, lit);
 }
